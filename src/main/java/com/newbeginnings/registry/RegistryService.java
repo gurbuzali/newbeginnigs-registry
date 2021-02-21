@@ -45,6 +45,14 @@ public class RegistryService {
         participant.setAddress(address);
     }
 
+    Participant delete(String referenceNumber) {
+        Participant participant = map.remove(referenceNumber);
+        if (participant == null) {
+            throw new ParticipantNotFoundException(NO_PARTICIPANT + referenceNumber);
+        }
+        return participant;
+    }
+
     Participant getParticipant(String referenceNumber) {
         Participant participant = map.get(referenceNumber);
         if (participant == null) {
