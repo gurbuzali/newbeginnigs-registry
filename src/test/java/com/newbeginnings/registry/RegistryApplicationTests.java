@@ -52,7 +52,7 @@ class RegistryApplicationTests {
 
         // when
         ResponseEntity<Participant> responseEntity = restTemplate
-                .getForEntity(baseUri + "/get?referenceNumber={refNo}", Participant.class, refNo);
+                .getForEntity(baseUri + "/get/{refNo}", Participant.class, refNo);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
@@ -79,7 +79,7 @@ class RegistryApplicationTests {
         String newPhoneNo = "bar";
 
         ResponseEntity<String> responseEntity = restTemplate
-                .postForEntity(baseUri + "/updatePhoneNumber?referenceNumber={refNo}", newPhoneNo, String.class, refNo);
+                .postForEntity(baseUri + "/updatePhoneNumber/{refNo}", newPhoneNo, String.class, refNo);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -92,7 +92,7 @@ class RegistryApplicationTests {
 
         // when
         ResponseEntity<String> responseEntity = restTemplate
-                .postForEntity(baseUri + "/updatePhoneNumber?referenceNumber={refNo}", newPhoneNo, String.class, refNo);
+                .postForEntity(baseUri + "/updatePhoneNumber/{refNo}", newPhoneNo, String.class, refNo);
 
         assertThat(responseEntity.getBody()).isEqualTo(participant.getPhoneNumber());
         assertThat(getParticipant(refNo).getBody().getPhoneNumber()).isEqualTo(newPhoneNo);
@@ -105,7 +105,7 @@ class RegistryApplicationTests {
         String newAddress = "bar";
 
         ResponseEntity<String> responseEntity = restTemplate
-                .postForEntity(baseUri + "/updateAddress?referenceNumber={refNo}", newAddress, String.class, refNo);
+                .postForEntity(baseUri + "/updateAddress/{refNo}", newAddress, String.class, refNo);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -118,7 +118,7 @@ class RegistryApplicationTests {
 
         // when
         ResponseEntity<String> responseEntity = restTemplate
-                .postForEntity(baseUri + "/updateAddress?referenceNumber={refNo}", newAddress, String.class, refNo);
+                .postForEntity(baseUri + "/updateAddress/{refNo}", newAddress, String.class, refNo);
 
         assertThat(responseEntity.getBody()).isEqualTo(participant.getAddress());
         assertThat(getParticipant(refNo).getBody().getAddress()).isEqualTo(newAddress);
@@ -130,7 +130,7 @@ class RegistryApplicationTests {
         String refNo = "foo";
 
         ResponseEntity<Participant> responseEntity = restTemplate
-                .postForEntity(baseUri + "/delete?referenceNumber={refNo}", null, Participant.class, refNo);
+                .postForEntity(baseUri + "/delete/{refNo}", null, Participant.class, refNo);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
@@ -142,7 +142,7 @@ class RegistryApplicationTests {
 
         // when
         ResponseEntity<Participant> responseEntity = restTemplate
-                .postForEntity(baseUri + "/delete?referenceNumber={refNo}", null, Participant.class, refNo);
+                .postForEntity(baseUri + "/delete/{refNo}", null, Participant.class, refNo);
 
         participant.setReferenceNumber(refNo);
         assertThat(responseEntity.getBody()).isEqualTo(participant);
@@ -159,7 +159,7 @@ class RegistryApplicationTests {
     }
 
     private ResponseEntity<Participant> getParticipant(String refNo) {
-        return restTemplate.getForEntity(baseUri + "/get?referenceNumber={refNo}", Participant.class, refNo);
+        return restTemplate.getForEntity(baseUri + "/get/{refNo}", Participant.class, refNo);
     }
 
     private static String randomString() {

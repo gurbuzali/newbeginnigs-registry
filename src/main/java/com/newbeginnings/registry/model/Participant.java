@@ -1,6 +1,9 @@
 package com.newbeginnings.registry.model;
 
+import org.springframework.lang.NonNull;
+
 import java.util.Date;
+import java.util.Objects;
 
 public class Participant {
 
@@ -25,6 +28,7 @@ public class Participant {
         this.referenceNumber = referenceNumber;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
@@ -33,6 +37,7 @@ public class Participant {
         this.name = name;
     }
 
+    @NonNull
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -41,6 +46,7 @@ public class Participant {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @NonNull
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -49,6 +55,7 @@ public class Participant {
         this.phoneNumber = phoneNumber;
     }
 
+    @NonNull
     public String getAddress() {
         return address;
     }
@@ -64,7 +71,7 @@ public class Participant {
 
         Participant that = (Participant) o;
 
-        if (referenceNumber != null ? !referenceNumber.equals(that.referenceNumber) : that.referenceNumber != null)
+        if (!Objects.equals(referenceNumber, that.referenceNumber))
             return false;
         if (!name.equals(that.name)) return false;
         if (!dateOfBirth.equals(that.dateOfBirth)) return false;
