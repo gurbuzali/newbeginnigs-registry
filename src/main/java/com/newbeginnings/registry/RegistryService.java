@@ -35,14 +35,18 @@ public class RegistryService {
         return referenceNumber;
     }
 
-    void updatePhoneNumber(String referenceNumber, String phoneNumber) {
+    String updatePhoneNumber(String referenceNumber, String phoneNumber) {
         Participant participant = getParticipant(referenceNumber);
+        String oldPhoneNumber = participant.getPhoneNumber();
         participant.setPhoneNumber(phoneNumber);
+        return oldPhoneNumber;
     }
 
-    void updateAddress(String referenceNumber, String address) {
+    String updateAddress(String referenceNumber, String address) {
         Participant participant = getParticipant(referenceNumber);
+        String oldAddress = participant.getAddress();
         participant.setAddress(address);
+        return oldAddress;
     }
 
     Participant delete(String referenceNumber) {

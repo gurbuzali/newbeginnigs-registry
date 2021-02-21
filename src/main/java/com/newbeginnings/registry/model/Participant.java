@@ -57,4 +57,28 @@ public class Participant {
         this.address = address;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Participant that = (Participant) o;
+
+        if (referenceNumber != null ? !referenceNumber.equals(that.referenceNumber) : that.referenceNumber != null)
+            return false;
+        if (!name.equals(that.name)) return false;
+        if (!dateOfBirth.equals(that.dateOfBirth)) return false;
+        if (!phoneNumber.equals(that.phoneNumber)) return false;
+        return address.equals(that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = referenceNumber != null ? referenceNumber.hashCode() : 0;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + dateOfBirth.hashCode();
+        result = 31 * result + phoneNumber.hashCode();
+        result = 31 * result + address.hashCode();
+        return result;
+    }
 }

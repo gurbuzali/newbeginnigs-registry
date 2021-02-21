@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,27 +20,27 @@ public class RegistryController {
     }
 
     @PostMapping("/add")
-    public String add(@RequestBody Participant participant) {
+    public @ResponseBody String add(@RequestBody @NonNull Participant participant) {
         return registryService.add(participant);
     }
 
     @GetMapping("/get")
-    public Participant get(@NonNull String referenceNumber) {
+    public @ResponseBody Participant get(@NonNull String referenceNumber) {
         return registryService.get(referenceNumber);
     }
 
     @PostMapping("/updatePhoneNumber")
-    public void updatePhoneNumber(@NonNull String referenceNumber, @NonNull String phoneNumber) {
-        registryService.updatePhoneNumber(referenceNumber, phoneNumber);
+    public @ResponseBody String updatePhoneNumber(@NonNull String referenceNumber, @RequestBody @NonNull String phoneNumber) {
+        return registryService.updatePhoneNumber(referenceNumber, phoneNumber);
     }
 
     @PostMapping("/updateAddress")
-    public void updateAddress(@NonNull String referenceNumber, @NonNull String address) {
-        registryService.updateAddress(referenceNumber, address);
+    public @ResponseBody String updateAddress(@NonNull String referenceNumber, @RequestBody @NonNull String address) {
+        return registryService.updateAddress(referenceNumber, address);
     }
 
-    @RequestMapping("/delete")
-    public Participant delete(@NonNull String referenceNumber) {
+    @PostMapping("/delete")
+    public @ResponseBody Participant delete(@NonNull String referenceNumber) {
         return registryService.delete(referenceNumber);
     }
 
